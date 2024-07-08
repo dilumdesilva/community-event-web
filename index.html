@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conference</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .scroll-container {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        gap: 1rem;
+      }
+
+      .scroll-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      .card {
+        background-color: #e2e8f0;
+        padding: 5rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .card img {
+        border-radius: 50%;
+        margin-bottom: 1rem;
+        border: 2px solid #3b82f6;
+      }
+
+      .placeholder {
+        background-color: #d1d5db;
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+        border-radius: 50%;
+        border: 2px solid #3b82f6;
+        margin-bottom: 1rem;
+      }
+
+      .gallery-container {
+        position: relative;
+      }
+
+      .gallery-scroll {
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .gallery-card {
+        display: inline-block;
+        width: 100%;
+        max-width: 400px;
+        height: 300px;
+        margin-right: 1rem;
+      }
+
+      .organizer-card {
+        display: inline-block;
+        width: 100%;
+        max-width: 400px;
+        margin-right: 1rem;
+      }
+
+      .gallery-enlarged {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 20;
+      }
+
+      .gallery-enlarged img {
+        max-width: 90%;
+        max-height: 90%;
+      }
+
+      .stats-card {
+        background-color: #e0f2fe;
+        padding: 1rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 100px;
+      }
+
+      .stats-card h3 {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      .stats-card p {
+        font-size: 1rem;
+        color: #6b7280;
+      }
+
+      .pricing-font {
+        font-size: 60px;
+      }
+
+      .p-4 {
+        padding: 2rem;
+      }
+
+      .rotate-180 {
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-600 p-4 text-white fixed w-full top-0 z-10">
+      <div class="container mx-auto flex justify-between">
+        <a href="#" class="font-bold text-xl">Conference</a>
+        <div>
+          <a href="#speakers" class="px-4">Speakers</a>
+          <a href="#schedule" class="px-4">Schedule</a>
+          <a href="#tickets" class="px-4">Tickets</a>
+          <a href="#organizers" class="px-4">Organizers</a>
+          <a href="#gallery" class="px-4">Gallery</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="hero h-screen bg-cover bg-center"
+      style="
+        background-image: url('https://source.unsplash.com/random/1920x1080?conference');
+      "
+    >
+      <div class="h-full flex items-center justify-center text-white">
+        <h1 class="text-5xl font-bold bg-black bg-opacity-50 p-4 rounded">
+          Welcome to the Conference
+        </h1>
+      </div>
+    </section>
+
+    <!-- Event Details Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto flex flex-col lg:flex-row items-center">
+        <div
+          class="w-full lg:w-1/3 flex justify-center lg:justify-start mb-8 lg:mb-0"
+        >
+          <div class="bg-gray-300 rounded-full h-80 w-80"></div>
+        </div>
+        <div class="w-full lg:w-2/3 lg:pl-12 text-center lg:text-left">
+          <h2 class="text-4xl font-bold mb-4">
+            Event Name Goes Here with the Year
+          </h2>
+          <p class="text-xl mb-4">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+            consequuntur tempora voluptatem in sunt soluta quaerat eaque enim
+            tenetur vero odit asperiores doloremque fuga pariatur, eligendi
+            officia quasi omnis quae.
+          </p>
+          <p class="text-lg mb-8">
+            <strong>Date:</strong> 10th - 11th December 2022 <br /><strong
+              >Location:</strong
+            >
+            Event Location, City, Country
+          </p>
+          <div class="mt-8 flex justify-center lg:justify-start space-x-4">
+            <div class="stats-card">
+              <h3>200</h3>
+              <p>Attendees</p>
+            </div>
+            <div class="stats-card">
+              <h3>20</h3>
+              <p>Speakers</p>
+            </div>
+            <div class="stats-card">
+              <h3>25+</h3>
+              <p>Sessions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Speakers Section -->
+    <section id="speakers" class="py-16">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8">Speakers</h2>
+        <div class="scroll-container gallery-scroll">
+          <!-- Speaker Card -->
+          <div class="speaker-scroll-card card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 1</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <!-- Repeat for other speakers -->
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 2</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 3</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 4</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 5</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 6</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 7</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 8</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 9</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 10</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 8</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 9</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div class="scroll-item card">
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Speaker 10</h3>
+            <p class="text-gray-600">Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+        <!-- Apply to Become a Speaker -->
+        <div class="mt-8 text-center">
+          <h3 class="text-xl font-bold">Apply to Become a Speaker</h3>
+          <p class="text-gray-600 mb-4">Share your expertise</p>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded">
+            <i class="fas fa-microphone"></i> Apply Now
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="py-16 bg-gray-200">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8">Event Schedule</h2>
+        <div class="tabs">
+          <ul class="flex justify-center mb-4">
+            <li class="mr-2">
+              <a href="#day1" class="bg-blue-500 text-white px-4 py-2 rounded"
+                >Day 1</a
+              >
+            </li>
+            <li>
+              <a href="#day2" class="bg-blue-500 text-white px-4 py-2 rounded"
+                >Day 2</a
+              >
+            </li>
+          </ul>
+          <div id="day1" class="tab-content">
+            <table class="min-w-full bg-gray-800 text-white">
+              <thead>
+                <tr>
+                  <th class="py-2 px-4 bg-gray-700">Time</th>
+                  <th class="py-2 px-4 bg-gray-700">Speaker</th>
+                  <th class="py-2 px-4 bg-gray-700">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="border px-4 py-2">9:00 AM</td>
+                  <td class="border px-4 py-2">Speaker 1</td>
+                  <td class="border px-4 py-2">Opening Remarks</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">10:00 AM</td>
+                  <td class="border px-4 py-2">Speaker 2</td>
+                  <td class="border px-4 py-2">Keynote Address</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">11:00 AM</td>
+                  <td class="border px-4 py-2">Speaker 3</td>
+                  <td class="border px-4 py-2">Panel Discussion</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">12:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 4</td>
+                  <td class="border px-4 py-2">Lunch Break</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">1:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 5</td>
+                  <td class="border px-4 py-2">Workshop 1</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">2:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 6</td>
+                  <td class="border px-4 py-2">Workshop 2</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">3:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 7</td>
+                  <td class="border px-4 py-2">Networking Session</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">4:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 8</td>
+                  <td class="border px-4 py-2">Closing Remarks</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">5:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 9</td>
+                  <td class="border px-4 py-2">End of Day 1</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">6:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 10</td>
+                  <td class="border px-4 py-2">Dinner & Networking</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="day2" class="tab-content hidden">
+            <table class="min-w-full bg-gray-800 text-white">
+              <thead>
+                <tr>
+                  <th class="py-2 px-4 bg-gray-700">Time</th>
+                  <th class="py-2 px-4 bg-gray-700">Speaker</th>
+                  <th class="py-2 px-4 bg-gray-700">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="border px-4 py-2">9:00 AM</td>
+                  <td class="border px-4 py-2">Speaker 1</td>
+                  <td class="border px-4 py-2">Keynote Address</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">10:00 AM</td>
+                  <td class="border px-4 py-2">Speaker 2</td>
+                  <td class="border px-4 py-2">Workshop 3</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">11:00 AM</td>
+                  <td class="border px-4 py-2">Speaker 3</td>
+                  <td class="border px-4 py-2">Workshop 4</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">12:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 4</td>
+                  <td class="border px-4 py-2">Lunch Break</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">1:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 5</td>
+                  <td class="border px-4 py-2">Panel Discussion</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">2:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 6</td>
+                  <td class="border px-4 py-2">Workshop 5</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">3:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 7</td>
+                  <td class="border px-4 py-2">Networking Session</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">4:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 8</td>
+                  <td class="border px-4 py-2">Closing Remarks</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">5:00 PM</td>
+                  <td class="border px-4 py-2">Speaker 9</td>
+                  <td class="border px-4 py-2">End of Day 2</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tickets Section -->
+    <section id="tickets" class="py-16">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8">Tickets</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Ticket Card -->
+          <div class="bg-white p-4 rounded-lg shadow-lg text-center">
+            <h3 class="text-xl font-bold mb-4">Early Bird</h3>
+            <p class="text-gray-600 mb-4 pricing-font">$30</p>
+            <ul class="text-center">
+              <li class="mb-2">Access to all sessions</li>
+              <li class="mb-2">Conference materials</li>
+              <li class="mb-2">Lunch and snacks</li>
+            </ul>
+            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+              Buy Now
+            </button>
+          </div>
+          <!-- Ticket Card -->
+          <div class="bg-white p-4 rounded-lg shadow-lg text-center">
+            <h3 class="text-xl font-bold mb-4">Student</h3>
+            <p class="text-gray-600 mb-4 pricing-font">$20</p>
+            <ul class="text-center">
+              <li class="mb-2">Access to all sessions</li>
+              <li class="mb-2">Conference materials</li>
+              <li class="mb-2">Lunch and snacks</li>
+            </ul>
+            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+              Buy Now
+            </button>
+          </div>
+          <!-- Ticket Card -->
+          <div class="bg-white p-4 rounded-lg shadow-lg text-center">
+            <h3 class="text-xl font-bold mb-4">Professional</h3>
+            <p class="text-gray-600 mb-4 pricing-font">$50</p>
+            <ul class="text-center">
+              <li class="mb-2">Access to all sessions</li>
+              <li class="mb-2">Conference materials</li>
+              <li class="mb-2">Lunch and snacks</li>
+            </ul>
+            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+              Buy Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Organizers Section -->
+    <section id="organizers" class="py-16 bg-gray-200">
+      <div class="container mx-auto gallery-container">
+        <h2 class="text-3xl font-bold text-center mb-8">Organizers</h2>
+        <div class="gallery-scroll">
+          <!-- Organizer Card -->
+          <div
+            class="organizer-card bg-white p-4 rounded-lg shadow-lg text-center"
+          >
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Organizer 1</h3>
+            <p class="text-gray-600">Organizer Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <!-- Repeat for other organizers -->
+          <div
+            class="organizer-card bg-white p-4 rounded-lg shadow-lg text-center"
+          >
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Organizer 2</h3>
+            <p class="text-gray-600">Organizer Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div
+            class="organizer-card bg-white p-4 rounded-lg shadow-lg text-center"
+          >
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Organizer 3</h3>
+            <p class="text-gray-600">Organizer Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div
+            class="organizer-card bg-white p-4 rounded-lg shadow-lg text-center"
+          >
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Organizer 4</h3>
+            <p class="text-gray-600">Organizer Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div
+            class="organizer-card bg-white p-4 rounded-lg shadow-lg text-center"
+          >
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Organizer 5</h3>
+            <p class="text-gray-600">Organizer Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div
+            class="organizer-card bg-white p-4 rounded-lg shadow-lg text-center"
+          >
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Organizer 6</h3>
+            <p class="text-gray-600">Organizer Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div
+            class="organizer-card bg-white p-4 rounded-lg shadow-lg text-center"
+          >
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Organizer 7</h3>
+            <p class="text-gray-600">Organizer Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div
+            class="organizer-card bg-white p-4 rounded-lg shadow-lg text-center"
+          >
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Organizer 8</h3>
+            <p class="text-gray-600">Organizer Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div
+            class="organizer-card bg-white p-4 rounded-lg shadow-lg text-center"
+          >
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Organizer 9</h3>
+            <p class="text-gray-600">Organizer Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+          <div
+            class="organizer-card bg-white p-4 rounded-lg shadow-lg text-center"
+          >
+            <div class="placeholder"></div>
+            <h3 class="text-xl font-bold">Organizer 10</h3>
+            <p class="text-gray-600">Organizer Title</p>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="mt-2 inline-block text-blue-500"
+            >
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16">
+      <div class="container mx-auto gallery-container">
+        <h2 class="text-3xl font-bold text-center mb-8">Gallery</h2>
+        <!-- <div class="flex justify-between mb-4">
+          <button
+            id="scroll-left"
+            class="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            ←
+          </button>
+          <button
+            id="scroll-right"
+            class="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            →
+          </button>
+        </div> -->
+        <div class="gallery-scroll">
+          <div class="gallery-card bg-white p-4 rounded-lg shadow-lg">
+            <img
+              src="https://placehold.co/400"
+              alt="Gallery Image 1"
+              class="w-full h-full rounded-lg cursor-pointer"
+            />
+          </div>
+          <!-- Repeat for other gallery images -->
+          <div class="gallery-card bg-white p-4 rounded-lg shadow-lg">
+            <img
+              src="https://placehold.co/400"
+              alt="Gallery Image 2"
+              class="w-full h-full rounded-lg cursor-pointer"
+            />
+          </div>
+          <div class="gallery-card bg-white p-4 rounded-lg shadow-lg">
+            <img
+              src="https://placehold.co/400"
+              alt="Gallery Image 3"
+              class="w-full h-full rounded-lg cursor-pointer"
+            />
+          </div>
+          <div class="gallery-card bg-white p-4 rounded-lg shadow-lg">
+            <img
+              src="https://placehold.co/400"
+              alt="Gallery Image 4"
+              class="w-full h-full rounded-lg cursor-pointer"
+            />
+          </div>
+          <div class="gallery-card bg-white p-4 rounded-lg shadow-lg">
+            <img
+              src="https://placehold.co/400"
+              alt="Gallery Image 5"
+              class="w-full h-full rounded-lg cursor-pointer"
+            />
+          </div>
+          <div class="gallery-card bg-white p-4 rounded-lg shadow-lg">
+            <img
+              src="https://placehold.co/400"
+              alt="Gallery Image 6"
+              class="w-full h-full rounded-lg cursor-pointer"
+            />
+          </div>
+          <div class="gallery-card bg-white p-4 rounded-lg shadow-lg">
+            <img
+              src="https://placehold.co/400"
+              alt="Gallery Image 7"
+              class="w-full h-full rounded-lg cursor-pointer"
+            />
+          </div>
+          <div class="gallery-card bg-white p-4 rounded-lg shadow-lg">
+            <img
+              src="https://placehold.co/400"
+              alt="Gallery Image 8"
+              class="w-full h-full rounded-lg cursor-pointer"
+            />
+          </div>
+          <div class="gallery-card bg-white p-4 rounded-lg shadow-lg">
+            <img
+              src="https://placehold.co/400"
+              alt="Gallery Image 9"
+              class="w-full h-full rounded-lg cursor-pointer"
+            />
+          </div>
+          <div class="gallery-card bg-white p-4 rounded-lg shadow-lg">
+            <img
+              src="https://placehold.co/400"
+              alt="Gallery Image 10"
+              class="w-full h-full rounded-lg cursor-pointer"
+            />
+          </div>
+        </div>
+        <div id="enlarged-view" class="gallery-enlarged flex">
+          <img src="" alt="Enlarged Gallery Image" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 bg-white">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8">
+          Frequently Asked Questions
+        </h2>
+        <div class="text-center mb-8">
+          <p class="text-gray-600">
+            Need answers? Everything is here
+            <a href="#" class="text-blue-500">here</a>.
+          </p>
+        </div>
+        <div class="space-y-4">
+          <div class="border-b border-gray-200">
+            <button
+              class="w-full text-left py-4 flex justify-between items-center faq-question"
+            >
+              <span>What is a DevFest?</span>
+              <span class="faq-icon transform transition-transform duration-200"
+                >&#x25bc;</span
+              >
+            </button>
+            <div class="faq-answer hidden text-gray-600 px-4 pb-4">
+              DevFest is a community-led, developer event hosted by GDG chapters
+              around the globe.
+            </div>
+          </div>
+          <div class="border-b border-gray-200">
+            <button
+              class="w-full text-left py-4 flex justify-between items-center faq-question"
+            >
+              <span>What are GDGs?</span>
+              <span class="faq-icon transform transition-transform duration-200"
+                >&#x25bc;</span
+              >
+            </button>
+            <div class="faq-answer hidden text-gray-600 px-4 pb-4">
+              GDGs (Google Developer Groups) are local groups of developers
+              interested in Google products and APIs.
+            </div>
+          </div>
+          <div class="border-b border-gray-200">
+            <button
+              class="w-full text-left py-4 flex justify-between items-center faq-question"
+            >
+              <span>Who can register for DevFest?</span>
+              <span class="faq-icon transform transition-transform duration-200"
+                >&#x25bc;</span
+              >
+            </button>
+            <div class="faq-answer hidden text-gray-600 px-4 pb-4">
+              Anyone interested in technology and Google products can register
+              for DevFest.
+            </div>
+          </div>
+          <div class="border-b border-gray-200">
+            <button
+              class="w-full text-left py-4 flex justify-between items-center faq-question"
+            >
+              <span>What is DevFest Profile?</span>
+              <span class="faq-icon transform transition-transform duration-200"
+                >&#x25bc;</span
+              >
+            </button>
+            <div class="faq-answer hidden text-gray-600 px-4 pb-4">
+              DevFest Profile is your personalized profile that tracks your
+              attendance and participation in DevFest events.
+            </div>
+          </div>
+          <div class="border-b border-gray-200">
+            <button
+              class="w-full text-left py-4 flex justify-between items-center faq-question"
+            >
+              <span>How do I create my DevFest developer profile?</span>
+              <span class="faq-icon transform transition-transform duration-200"
+                >&#x25bc;</span
+              >
+            </button>
+            <div class="faq-answer hidden text-gray-600 px-4 pb-4">
+              You can create your DevFest developer profile by signing up on the
+              DevFest website and filling in the required details.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 p-4 text-white text-center">
+      <p>© 2024 Conference. All rights reserved.</p>
+      <div class="mt-2">
+        <a href="#" class="px-4">Facebook</a>
+        <a href="#" class="px-4">Twitter</a>
+        <a href="#" class="px-4">LinkedIn</a>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      // FAQ Accordion
+      document.querySelectorAll(".faq-question").forEach((button) => {
+        button.addEventListener("click", () => {
+          const answer = button.nextElementSibling;
+          const icon = button.querySelector(".faq-icon");
+
+          // Toggle the answer visibility
+          if (answer.classList.contains("hidden")) {
+            answer.classList.remove("hidden");
+          } else {
+            answer.classList.add("hidden");
+          }
+
+          // Toggle the icon rotation
+          icon.classList.toggle("rotate-180");
+        });
+      });
+
+      // Gallery Scroll
+      document
+        .getElementById("scroll-left")
+        .addEventListener("click", function () {
+          document.querySelector(".gallery-scroll").scrollBy({
+            left: -300,
+            behavior: "smooth",
+          });
+        });
+
+      document
+        .getElementById("scroll-right")
+        .addEventListener("click", function () {
+          document.querySelector(".gallery-scroll").scrollBy({
+            left: 300,
+            behavior: "smooth",
+          });
+        });
+
+      // Tabs
+      document.querySelectorAll(".tabs a").forEach((tab) => {
+        tab.addEventListener("click", function (e) {
+          e.preventDefault();
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((content) => content.classList.add("hidden"));
+          document
+            .querySelector(this.getAttribute("href"))
+            .classList.remove("hidden");
+          document
+            .querySelectorAll(".tabs a")
+            .forEach((t) => t.classList.remove("bg-blue-500"));
+          this.classList.add("bg-blue-500");
+        });
+      });
+
+      // Gallery Enlarged View
+      document.querySelectorAll(".gallery-card img").forEach((image) => {
+        image.addEventListener("click", function () {
+          document.getElementById("enlarged-view").style.display = "flex";
+          document.getElementById("enlarged-view").querySelector("img").src =
+            this.src;
+        });
+      });
+
+      document
+        .getElementById("enlarged-view")
+        .addEventListener("click", function () {
+          this.style.display = "none";
+        });
+    </script>
+  </body>
+</html>
