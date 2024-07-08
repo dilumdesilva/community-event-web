@@ -35,13 +35,16 @@
       }
 
       .placeholder {
-        background-color: #d1d5db;
+        background-image: url("assets/images/speaker-placeholder.jpg");
+        /* background-color: #d1d5db; */
         width: 200px;
         height: 200px;
         display: inline-block;
         border-radius: 50%;
         border: 2px solid #3b82f6;
         margin-bottom: 1rem;
+        background-size: cover;
+        background-position: center;
       }
 
       .gallery-container {
@@ -145,9 +148,7 @@
     <!-- Hero Section -->
     <section
       class="hero h-screen bg-cover bg-center"
-      style="
-        background-image: url('https://source.unsplash.com/random/1920x1080?conference');
-      "
+      style="background-image: url('assets/images/conferance-bg.jpg')"
     >
       <div class="h-full flex items-center justify-center text-white">
         <h1 class="text-5xl font-bold bg-black bg-opacity-50 p-4 rounded">
@@ -162,7 +163,14 @@
         <div
           class="w-full lg:w-1/3 flex justify-center lg:justify-start mb-8 lg:mb-0"
         >
-          <div class="bg-gray-300 rounded-full h-80 w-80"></div>
+          <div
+            class="bg-gray-300 rounded-full h-80 w-80"
+            style="
+              background-image: url('assets/images/conferance-bg.jpg');
+              background-size: cover;
+              background-position: center;
+            "
+          ></div>
         </div>
         <div class="w-full lg:w-2/3 lg:pl-12 text-center lg:text-left">
           <h2 class="text-4xl font-bold mb-4">
