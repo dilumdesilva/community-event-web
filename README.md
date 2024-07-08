@@ -1,5 +1,5 @@
 # community-event-web
-This is a website template developed by me for the community events that I organise.
+This is a website template I developed for the community events I organise.
 
 # live preview
-(Visit Here to see the live preview of current version in the main branch)[https://dilumdesilva.github.io/community-event-web/]
+[Visit Here to see the live preview of the current version in the main branch](https://dilumdesilva.github.io/community-event-web/)
